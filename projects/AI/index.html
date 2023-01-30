@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <div id="comic"></div>
+<button id="view-more">View More</button>
+<button id="share">Share</button>
+
+<script>
+  const comicContainer = document.getElementById("comic");
+  const viewMoreButton = document.getElementById("view-more");
+  const shareButton = document.getElementById("share");
+  const comicList = [
+    "https://www.gocomics.com/calvinandhobbes/",
+    "https://www.gocomics.com/peanuts/",
+    "https://www.gocomics.com/garfield/",
+    "https://www.gocomics.com/dilbert/",
+    "https://www.gocomics.com/xkcd/",
+    "https://www.gocomics.com/nonsequitur/",
+    "https://www.gocomics.com/foxtrot/",
+    "https://www.gocomics.com/luann/",
+    "https://www.gocomics.com/getfuzzy/"
+  ];
+
+  // Get a random index from the comicList array
+  let randomIndex = Math.floor(Math.random() * comicList.length);
+
+  // Get the URL for the randomly selected comic
+  let comicUrl = comicList[randomIndex];
+
+  comicContainer.innerHTML = `<img src="${comicUrl}" alt="Random comic">`;
+
+  viewMoreButton.addEventListener("click", function() {
+    window.location.href = comicUrl;
+  });
+
+  shareButton.addEventListener("click", function() {
+    let twitterShareUrl = `https://twitter.com/intent/tweet?text=Check out this comic: ${comicUrl}`;
+    let facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${comicUrl}`;
+    let instagramShareUrl = `https://www.instagram.com/share?url=${comicUrl}`;
+    let shareChoice = prompt("Share on Twitter, Facebook, Instagram or Copy to Clipboard?", "Twitter");
+    if (shareChoice === "Twitter") {
+      window.open(twitterShareUrl, "_blank");
+    } else if (shareChoice === "Facebook") {
+      window.open(facebookShareUrl, "_blank");
+    } else if (shareChoice === "Instagram") {
+      window.open(instagramShareUrl, "_blank");
+    } else if (shareChoice === "Copy to Clipboard") {
+      navigator.clipboard.writeText(comicUrl).then(function() {
+        alert("Comic URL copied to clipboard!");
+      });
+    }
+  });
+</script>
+
+</html>
